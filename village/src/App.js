@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, withRouter } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -31,21 +31,18 @@ class App extends Component {
         console.log(err);
       });
   }
-  deleteSmurf = (ev, id) => {
+  deleteSmurf = async (ev, id) => {
     ev.preventDefault();
-    axios
-      .delete(`http://localhost:3333/smurfs/${id}`)
-      .then(res => {
-        this.setState({
-          smurfs: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    try {
+      const response = await axios.delete(`http://localhost:3333/smurfs/${id}`);
+      this.setState({ smurfs: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
   updateForm = (ev, id) => {
     ev.preventDefault();
+    this.props.history.push("/smurf-form");
     this.setState({
       smurf: this.state.smurfs.find(smurf => smurf.id === id),
       isUpdating: true
@@ -73,6 +70,7 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
+    this.props.history.push("/");
   };
   addSmurf = () => {
     const smurf = {
@@ -99,6 +97,7 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
+    this.props.history.push("/");
   };
 
   handleInputChange = e => {
@@ -157,4 +156,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

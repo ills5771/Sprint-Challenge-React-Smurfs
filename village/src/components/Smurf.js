@@ -9,10 +9,11 @@ const Smurf = props => {
           className="card text-white bg-primary
     mb-3"
         >
+          {" "}
+          <img src={props.imgUrl} alt={props.imgUrl} />
           <h3>{props.name}</h3>
           <strong>{props.height} tall</strong>
           <p>{props.age} smurf years old</p>
-
           <div className="btn-group" role="group" aria-label="Basic example">
             <button
               onClick={ev => props.updateForm(ev, props.id)}
@@ -39,7 +40,8 @@ const Smurf = props => {
 Smurf.defaultProps = {
   name: "",
   height: "",
-  age: ""
+  age: "",
+  imgUrl: ""
 };
 
 export default Smurf;

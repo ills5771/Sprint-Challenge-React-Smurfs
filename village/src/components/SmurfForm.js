@@ -31,6 +31,12 @@ function SmurfForm(props) {
           value={props.smurf.height}
           name="height"
         />
+        <input
+          onChange={props.handleInputChange}
+          placeholder="image"
+          value={props.smurf.imgUrl}
+          name="imgUrl"
+        />
 
         <button>{props.isUpdating ? "Update" : "Add Smurf"}</button>
       </form>
