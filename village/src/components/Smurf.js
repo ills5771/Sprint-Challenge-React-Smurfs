@@ -15,7 +15,7 @@ const Smurf = props => {
             Update Smurf
           </button>
           <button
-            // onClick={this.handleDeleteSmurf}
+            onClick={ev => props.deleteSmurf(ev, props.id)}
             type="button"
             className="btn btn-dark btn-xs"
           >
