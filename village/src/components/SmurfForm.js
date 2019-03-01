@@ -1,57 +1,47 @@
-import React, { Component } from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-class SmurfForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      height: ''
-    };
+function SmurfForm(props) {
+  function handleSubmit(ev) {
+    ev.preventDefault();
+    if (props.isUpdating) {
+      props.updateSmurf();
+    } else {
+      props.addSmurf();
+    }
   }
+  return (
+    <div className="SmurfForm">
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={props.handleInputChange}
+          placeholder="name"
+          value={props.smurf.name}
+          name="name"
+        />
+        <input
+          onChange={props.handleInputChange}
+          placeholder="age"
+          value={props.smurf.age}
+          name="age"
+        />
+        <input
+          onChange={props.handleInputChange}
+          placeholder="height"
+          value={props.smurf.height}
+          name="height"
+        />
+        <input
+          onChange={props.handleInputChange}
+          placeholder="image"
+          value={props.smurf.imgUrl}
+          name="imgUrl"
+        />
 
-  addSmurf = event => {
-    event.preventDefault();
-    // add code to create the smurf using the api
-
-    this.setState({
-      name: '',
-      age: '',
-      height: ''
-    });
-  }
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  render() {
-    return (
-      <div className="SmurfForm">
-        <form onSubmit={this.addSmurf}>
-          <input
-            onChange={this.handleInputChange}
-            placeholder="name"
-            value={this.state.name}
-            name="name"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="age"
-            value={this.state.age}
-            name="age"
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder="height"
-            value={this.state.height}
-            name="height"
-          />
-          <button type="submit">Add to the village</button>
-        </form>
-      </div>
-    );
-  }
+        <button>{props.isUpdating ? "Update" : "Add Smurf"}</button>
+      </form>
+    </div>
+  );
 }
 
 export default SmurfForm;
