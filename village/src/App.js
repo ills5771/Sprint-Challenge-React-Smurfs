@@ -47,9 +47,25 @@ class App extends Component {
     });
   };
 
-  updateSmurf = (ev, id) => {
-    ev.preventDefault();
-    axios.put();
+  updateSmurf = () => {
+    axios
+      .put(
+        `http://localhost:3333/smurfs/${this.state.smurf.id}`,
+        this.state.smurf
+      )
+      .then(res => {
+        this.setState({
+          smurfs: res.data,
+          isUpdating: false,
+          smurf: {
+            name: "",
+            age: "",
+            height: ""
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+      });
   };
 
   render() {
