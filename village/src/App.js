@@ -9,7 +9,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smurfs: []
+      smurfs: [],
+      smurf: { name: "", age: "", height: "" },
+      isUpdating: false
     };
   }
   componentDidMount() {
@@ -36,6 +38,18 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  updateForm = (ev, id) => {
+    ev.preventDefault();
+    this.setState({
+      smurf: this.state.smurfs.find(smurf => smurf.id === id),
+      isUpdating: true
+    });
+  };
+
+  updateSmurf = (ev, id) => {
+    ev.preventDefault();
+    axios.put();
   };
 
   render() {
