@@ -10,7 +10,11 @@ class App extends Component {
     super(props);
     this.state = {
       smurfs: [],
-      smurf: { name: "", age: "", height: "" },
+      smurf: {
+        name: "",
+        age: "",
+        height: ""
+      },
       isUpdating: false
     };
   }
@@ -62,20 +66,75 @@ class App extends Component {
             age: "",
             height: ""
           }
-        }).catch(err => {
-          console.log(err);
         });
+      })
+      .catch(err => {
+        console.log(err);
       });
+  };
+  addSmurf = () => {
+    const smurf = {
+      name: this.state.smurf.name,
+      age: this.state.smurf.age,
+      height: this.state.smurf.height
+    };
+
+    axios
+      .post(`http://localhost:3333/smurfs`, smurf)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          smurfs: res.data,
+          smurf: {
+            name: "",
+            age: "",
+            height: ""
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  handleInputChange = e => {
+    this.setState({
+      smurf: {
+        ...this.state.smurf,
+        [e.target.name]: e.target.value
+      }
+    });
   };
 
   render() {
     return (
       <div className="App">
-        <nav style={{ display: "flex", textDecoration: "none" }}>
+        <nav
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            textDecoration: "none",
+            margin: "5%",
+            width: "350px"
+          }}
+        >
           <NavLink to="/">Smurf Village</NavLink>
-          <NavLink to="smurf-form">Add Smurf</NavLink>
+          <NavLink to="/smurf-form">Add Smurf</NavLink>
         </nav>
-        <Route path="/smurf-form" component={SmurfForm} />
+        <Route
+          path="/smurf-form"
+          render={props => (
+            <SmurfForm
+              {...props}
+              updateForm={this.updateForm}
+              updateSmurf={this.updateSmurf}
+              isUpdating={this.state.isUpdating}
+              handleInputChange={this.handleInputChange}
+              addSmurf={this.addSmurf}
+              smurf={this.state.smurf}
+            />
+          )}
+        />
         <Route
           exact
           path="/"
@@ -84,9 +143,49 @@ class App extends Component {
               {...props}
               smurfs={this.state.smurfs}
               deleteSmurf={this.deleteSmurf}
+              updateForm={this.updateForm}
+              isUpdating={this.state.isUpdating}
             />
           )}
         />
+        {/* <SmurfForm
+          updateForm={this.updateForm}
+          updateSmurf={this.updateSmurf}
+          isUpdating={this.state.isUpdating}
+          handleInputChange={this.handleInputChange}
+          addSmurf={this.addSmurf}
+          smurf={this.state.smurf}
+        /> */}
+        {/* <Smurfs
+          smurfs={this.state.smurfs}
+          deleteSmurf={this.deleteSmurf}
+          updateForm={this.updateForm}
+          isUpdating={this.state.isUpdating}
+        /> */}
+        {/* <Route
+          path="/smurf-form"
+          render={props => (
+            <SmurfForm
+              {...props}
+              updateForm={this.updateForm}
+              updateSmurf={this.updateSmurf}
+              isUpdating={this.state.isUpdating}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <Smurfs
+              {...props}
+              smurfs={this.state.smurfs}
+              deleteSmurf={this.deleteSmurf}
+              updateForm={this.updateForm}
+              isUpdating={this.state.isUpdating}
+            />
+          )}
+        /> */}
       </div>
     );
   }

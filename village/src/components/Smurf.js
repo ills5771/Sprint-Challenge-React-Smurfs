@@ -1,29 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Smurf = props => {
   return (
-    <div className="container">
-      <div
-        className="card text-white bg-primary
+    <Link to="/smurf-form">
+      <div className="container">
+        <div
+          className="card text-white bg-primary
     mb-3"
-      >
-        <h3>{props.name}</h3>
-        <strong>{props.height} tall</strong>
-        <p>{props.age} smurf years old</p>
-        <div className="btn-group" role="group" aria-label="Basic example">
-          <button type="button" className="btn btn-light btn-xs">
-            Update Smurf
-          </button>
-          <button
-            onClick={ev => props.deleteSmurf(ev, props.id)}
-            type="button"
-            className="btn btn-dark btn-xs"
-          >
-            Delete Smurf
-          </button>
-        </div>
-      </div>{" "}
-    </div>
+        >
+          <h3>{props.name}</h3>
+          <strong>{props.height} tall</strong>
+          <p>{props.age} smurf years old</p>
+
+          <div className="btn-group" role="group" aria-label="Basic example">
+            <button
+              onClick={ev => props.updateForm(ev, props.id)}
+              type="button"
+              className="btn btn-light btn-xs"
+            >
+              Update Smurf
+            </button>
+
+            <button
+              onClick={ev => props.deleteSmurf(ev, props.id)}
+              type="button"
+              className="btn btn-dark btn-xs"
+            >
+              Delete Smurf
+            </button>
+          </div>
+        </div>{" "}
+      </div>
+    </Link>
   );
 };
 
