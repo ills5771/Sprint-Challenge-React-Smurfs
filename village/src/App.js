@@ -13,7 +13,8 @@ class App extends Component {
       smurf: {
         name: "",
         age: "",
-        height: ""
+        height: "",
+        imgUrl: ""
       },
       isUpdating: false
     };
@@ -64,7 +65,8 @@ class App extends Component {
           smurf: {
             name: "",
             age: "",
-            height: ""
+            height: "",
+            imgUrl: ""
           }
         });
       })
@@ -76,7 +78,8 @@ class App extends Component {
     const smurf = {
       name: this.state.smurf.name,
       age: this.state.smurf.age,
-      height: this.state.smurf.height
+      height: this.state.smurf.height,
+      imgUrl: this.state.smurf.imgUrl
     };
 
     axios
@@ -88,7 +91,8 @@ class App extends Component {
           smurf: {
             name: "",
             age: "",
-            height: ""
+            height: "",
+            imgUrl: ""
           }
         });
       })
@@ -148,44 +152,6 @@ class App extends Component {
             />
           )}
         />
-        {/* <SmurfForm
-          updateForm={this.updateForm}
-          updateSmurf={this.updateSmurf}
-          isUpdating={this.state.isUpdating}
-          handleInputChange={this.handleInputChange}
-          addSmurf={this.addSmurf}
-          smurf={this.state.smurf}
-        /> */}
-        {/* <Smurfs
-          smurfs={this.state.smurfs}
-          deleteSmurf={this.deleteSmurf}
-          updateForm={this.updateForm}
-          isUpdating={this.state.isUpdating}
-        /> */}
-        {/* <Route
-          path="/smurf-form"
-          render={props => (
-            <SmurfForm
-              {...props}
-              updateForm={this.updateForm}
-              updateSmurf={this.updateSmurf}
-              isUpdating={this.state.isUpdating}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/"
-          render={props => (
-            <Smurfs
-              {...props}
-              smurfs={this.state.smurfs}
-              deleteSmurf={this.deleteSmurf}
-              updateForm={this.updateForm}
-              isUpdating={this.state.isUpdating}
-            />
-          )}
-        /> */}
       </div>
     );
   }
